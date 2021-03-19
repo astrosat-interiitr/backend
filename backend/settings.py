@@ -39,8 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# User Created Apps
 INSTALLED_APPS += [
     'astrosat',
+]
+
+# Third Party Apps
+INSTALLED_APPS += [
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
