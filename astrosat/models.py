@@ -23,6 +23,15 @@ class CosmicSource(models.Model):
         max_length=500,
     )
     
+    # alt_name, comma sperated 
+    
+    # categories , High Mass or Low mass
+    # IsObserved by Astrosat 
+    
+    
+    # xray type 
+    
+    
     class Meta:
         verbose_name = "CosmicSource"
         verbose_name_plural = "CosmicSources"
@@ -44,6 +53,10 @@ class Publication(models.Model):
     author = models.CharField(
         max_length=500,
     )
+    
+    # Paper url. 
+
+    # keyword
     
     class Meta:
         verbose_name = "Publication"
