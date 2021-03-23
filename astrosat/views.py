@@ -3,7 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from astrosat.serializers import SatelliteSerializer, CosmicSourceSerializer, PublicationSerializer
 from astrosat.models import Satellite, CosmicSource, Publication
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, filters, generics
 
 
 class SatelliteViewSet(viewsets.ReadOnlyModelViewSet):
@@ -24,12 +24,16 @@ class CosmicSourceViewSet(viewsets.ReadOnlyModelViewSet):
             
         serializer = CosmicSourceSerializer(queryset, many=True)
         return Response(serializer.data)
+   
+    
+class PublicationGetView(generics.RetrieveAPIView):
+    queryset = Publication.objects.all()
+    serializer_class = PublicationSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'abstract', 'author', 'keyword']
 
-
-
-class PublicationViewSet(viewsets.ReadOnlyModelViewSet):
-
-    def list(self, request):
-        queryset = Publication.objects.order_by('pk')
-        serializer = PublicationSerializer(queryset, many=True)
-        return Response(serializer.data)
+class PublicationListView(generics.ListAPIView):
+    queryset = Publication.objects.all()
+    serializer_class = PublicationSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'abstract', 'author', 'keyword']
