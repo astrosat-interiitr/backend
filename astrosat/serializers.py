@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from astrosat.models import Satellite, CosmicSource, Publication
+from astrosat.models import Satellite, CosmicSource, Publication, Astrosat
 
 
 class SatelliteSerializer(ModelSerializer):
@@ -20,4 +20,10 @@ class PublicationSerializer(ModelSerializer):
 
     class Meta:
         model = Publication
+        fields = '__all__'
+
+class AstrosatSerializer(ModelSerializer):
+
+    class Meta:
+        model = Astrosat
         fields = '__all__'
