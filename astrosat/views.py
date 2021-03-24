@@ -17,6 +17,7 @@ class SatelliteViewSet(viewsets.ReadOnlyModelViewSet):
 class CosmicSourceViewSet(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, pk=None):
+        queryset = CosmicSource.objects.order_by('pk')
         if pk == None:
             queryset = CosmicSource.objects.order_by('pk')
         else:

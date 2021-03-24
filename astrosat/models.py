@@ -21,38 +21,26 @@ class CosmicSource(models.Model):
     
     name = models.CharField( 
         max_length=500,
-        blank=True, 
-        null=True
+    )
+
+    equatorial_ra = models.DecimalField( 
+        max_digits=6,
+        decimal_places=3,
     )
     
-    alternative_name = models.CharField( 
-        max_length=500,
-        blank=True,
-        null=True
+    equatorial_dec = models.DecimalField( 
+        max_digits=5,
+        decimal_places=3,
     )
     
-    equatorial_ra = models.CharField( 
-        max_length=500,
-        blank=True, 
-        null=True
+    galactic_longitude = models.DecimalField( 
+        max_digits=6,
+        decimal_places=2,
     )
     
-    equatorial_dec = models.CharField( 
-        max_length=500,
-        blank=True, 
-        null=True
-    )
-    
-    galactic_longitude = models.CharField( 
-        max_length=500,
-        blank=True, 
-        null=True
-    )
-    
-    galactic_latitude = models.CharField( 
-        max_length=500,
-        blank=True, 
-        null=True
+    galactic_latitude = models.DecimalField( 
+        max_digits=8,
+        decimal_places=4,
     )
     
     type_of_observation = models.CharField( 
@@ -61,8 +49,9 @@ class CosmicSource(models.Model):
         null=True
     )
     
-    positional_accuracy = models.CharField(
-        max_length=500,
+    positional_accuracy = models.DecimalField( 
+        max_digits=7,
+        decimal_places=2,
         blank=True, 
         null=True
     )
@@ -73,20 +62,23 @@ class CosmicSource(models.Model):
         null=True
     )
     
-    v_magnitude = models.CharField(
-        max_length=500,
+    v_magnitude = models.DecimalField( 
+        max_digits=6,
+        decimal_places=3,
         blank=True, 
         null=True
     )
     
-    b_v_color_index  = models.CharField(
-        max_length=500,
+    b_v_color_index  = models.DecimalField( 
+        max_digits=6,
+        decimal_places=3,
         blank=True, 
         null=True
     )
      
-    u_b_color_index  = models.CharField(
-        max_length=500,
+    u_b_color_index  = models.DecimalField( 
+        max_digits=5,
+        decimal_places=2,
         blank=True, 
         null=True
     )
@@ -97,19 +89,34 @@ class CosmicSource(models.Model):
         null=True
     )
     
-    x_ray_flux = models.CharField(
-        max_length=500,
+    x_ray_flux = models.DecimalField( 
+        max_digits=11,
+        decimal_places=3,
         blank=True, 
         null=True
     )
     
-    orbital_period = models.CharField(
-        max_length=500,
+    orbital_period = models.DecimalField( 
+        max_digits=10,
+        decimal_places=6,
         blank=True, 
         null=True
     )
     
-    pulse_period = models.CharField(
+    pulse_period = models.DecimalField( 
+        max_digits=11,
+        decimal_places=5,
+        blank=True, 
+        null=True
+    )
+
+    name2 = models.CharField(
+        max_length=500,
+        blank=True, 
+        null=True
+    )
+
+    name3 = models.CharField(
         max_length=500,
         blank=True, 
         null=True
