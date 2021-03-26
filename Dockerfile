@@ -30,7 +30,7 @@ RUN apk add --no-cache --virtual .build-deps \
     )" \
     && apk add --virtual .rundeps $runDeps \
     && apk del .build-deps
-RUN pip install gunicorn
+RUN pip install gunicorn psycopg2
 CMD ["sh" , "/code/start.sh"]
 # CMD ["gunicorn", "--bind", "0.0.0.0:8000", "backend.wsgi"]
 
