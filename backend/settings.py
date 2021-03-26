@@ -58,6 +58,8 @@ INSTALLED_APPS += [
     'rest_framework',
     'drf_generators',
     'django_filters',
+    'storages',
+    
 
 ]
 
@@ -158,3 +160,15 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 15,
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
+
+
+
+AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+# AWS_DEFAULT_ACL = "public-read"
+AWS_REGION = env("AWS_REGION")
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)

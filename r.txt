@@ -13,6 +13,7 @@ distro==1.4.0
 Django==3.1.7
 django-environ==0.4.5
 django-filter==2.4.0
+django-storages==1.11.1
 djangorestframework==3.12.2
 drf-generators==0.5.0
 html5lib==1.0.1
@@ -41,4 +42,3 @@ toml==0.10.2
 uritemplate==3.0.1
 urllib3==1.25.8
 webencodings==0.5.1
-psycopg2==2.8.5
