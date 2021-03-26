@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from astrosat.serializers import *
 from astrosat.models import *
 from rest_framework import status, viewsets, filters, generics
+from rest_framework.views import APIView
 
 import io
 from django.http import FileResponse
@@ -55,3 +56,11 @@ def GeneratePdf(request):
     # present the option to save the file.
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
+
+
+class HealthCheck(APIView):
+    permission_classes = []
+
+    @staticmethod
+    def get(request):
+        return Response(status=status.HTTP_200_OK)

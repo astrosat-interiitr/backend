@@ -15,5 +15,6 @@ urlpatterns = router.urls
 urlpatterns += [
     path("publication", views.PublicationListView.as_view()),
     path("publication/<pk>", views.PublicationGetView.as_view()),
-    path('generate', views.GeneratePdf)
+    path('generate', views.GeneratePdf),
+    path("health-check", views.HealthCheck.as_view()),
 ]
