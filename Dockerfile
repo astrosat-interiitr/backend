@@ -1,4 +1,4 @@
-FROM python:3.8.3-alpine
+FROM python:3-alpine
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 COPY . /code
@@ -30,7 +30,7 @@ RUN apk add --no-cache --virtual .build-deps \
     )" \
     && apk add --virtual .rundeps $runDeps \
     && apk del .build-deps
-RUN pip install gunicorn psycopg2
+RUN pip install gunicorn 
 CMD ["sh" , "/code/start.sh"]
 # CMD ["gunicorn", "--bind", "0.0.0.0:8000", "backend.wsgi"]
 
