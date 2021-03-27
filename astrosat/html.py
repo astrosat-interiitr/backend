@@ -1,8 +1,8 @@
+from .models import *
 head = """
 <!doctype html>
 <html>
   <head>
-              <!--css style sheets-->
     <link href='https://fonts.googleapis.com/css?family=Allura' media="screen" rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Monsieur La Doulaise' media="screen" rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' media="screen">
@@ -29,11 +29,16 @@ head = """
     	}
 /*-----------------------abhi ke liye sorf mani body----------------------------*/
 h2{
-  font-family: "Camberia Matd";
+    font-family: "Camberia Matd";
   font-size: 40px;
   font-weight: bold;
 
   text-align: center;
+  margin-bottom: 50%;
+}
+
+p {
+    font-size: 15px;
 }
 
 .paper{
@@ -71,14 +76,20 @@ th{
 
 </style>
 </head>
-
 """
 
 
-html =  head + """
+publication_format = """
+<p><b>Title:</b>{}</p>
+<p><b>Authors:</b>{}</p>
+<p><b>Keywords:</b>{}</p>
+<p><b>Abstract:</b>{}</p>
+"""
+
+html = """
 <body>
   <div class="paper">
-    <h2 class="h2">Her X-1; 1656+354</h2>
+    <h2 class="h2">{}</h2>
     <hr class="nw1">
     <table class=content>
     	<tr>
@@ -203,21 +214,37 @@ html =  head + """
 
             <hr class=nw1>
     </table>
-   
-    
-
-    <div class="pp">
-    	<h2>Paper Published</h2>
-    	<p>
-    		<b>Title:</b>Time  evolution  of  cyclotron  line  of  Her  X-1:   a  detailed  statisticalanalysis including new AstroSat data
-    	</p>
-    	<p><b>Authors:</b>  Bala, S., Bhattacharya, D., Staubert, R., and Maitra, C.</p>
-    	<p><b>Keywords:</b>   stars:   neutron,  stars:   pulsars:   individual:   Her  X-1,  X-rays:binaries, Astrophysics - High Energy Astrophysical Phenomena</p>
-    	<p><b>Abstract:</b> The cyclotron line feature in the X-ray spectrum of the accretion-powered  pulsar  Her  X-1  has  been  observed  and  monitored  for  over  threedecades.   The  line  energy  exhibited  a  slow  secular  decline  over  the  period1995-2014, with a possible (not confirmed) indication of a reversal thereafter.Recent works have shown that the temporal evolution of the line energy maybe modelled as a flattening after an earlier decrease until MJD 55400 (±200).In this work, we present the results of AstroSat observations in the contextof earlier data and offer a common interpretation through a detailed studyof  temporal  and  flux  dependence.   We  find  that  the  variation  of  the  lineenergy does not support an upward trend but is consistent with the reportedflattening after an earlier decrease until MJD 54487+515−469.</p>
-    	<p><b>URL:</b><a href="https://ui.adsabs.harvard.edu/abs/2020MNRAS.497.1029B1">https://ui.adsabs.harvard.edu/abs/2020MNRAS.497.1029B1</a></p>
-
-    </div>
+    {}
 </div>
-
 </body>
-</html> """
+</html>"""
+
+publication_block = """
+<div class="pp">
+    	<h2>Paper Published</h2>
+        {} </div>
+"""
+def generateHTML(data):
+
+    print(data)
+
+    
+    publications = ""
+
+    if "publication_ids" in data.keys():
+        for publication in data['publication_ids']:
+            currentPublication = Publication.objects.get(id = publication)
+            publication_data = publication_format.format(
+                currentPublication.title,
+                currentPublication.authors,
+                currentPublication.keyword,
+                currentPublication.abstract,
+            )
+            publications = publications + publication_data
+        publications = publication_block.format(publications)
+
+
+    
+    htmlToReturn = html.format("Her X-1; 1656+354", publications)
+    htmlToReturn = head + htmlToReturn
+    return htmlToReturn

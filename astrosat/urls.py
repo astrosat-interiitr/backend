@@ -7,7 +7,7 @@ router = SimpleRouter()
 
 router.register(r'satellite', views.SatelliteViewSet, 'Satellite')
 router.register(r'cosmicsource', views.CosmicSourceViewSet, 'CosmicSource')
-router.register(r'astrosat', views.CosmicSourceViewSet, 'Astrosat')
+router.register(r'astrosat', views.AstrosatViewSet, 'Astrosat')
 
 urlpatterns = router.urls
 

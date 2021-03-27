@@ -13,7 +13,7 @@ from xhtml2pdf import pisa
 from io import BytesIO
 from django.http import HttpResponse
 
-from .html import html
+from .html import generateHTML
 
 
 class SatelliteViewSet(viewsets.ReadOnlyModelViewSet):
@@ -47,12 +47,11 @@ class PublicationListView(generics.ListAPIView):
 class GeneratePdf(APIView):
     permission_classes = []
 
-    @staticmethod
-    def get(request):
-        print(request)
+    def get(self, request):
         result = BytesIO()
-        my_str_as_bytes = str.encode(html)
-        pdf = pisa.pisaDocument(BytesIO(my_str_as_bytes), result)
+        html = generateHTML(request.query_params)
+        html_bytes = str.encode(html)
+        pdf = pisa.pisaDocument(BytesIO(html_bytes), result)
         if not pdf.err:
             return HttpResponse(result.getvalue(), content_type='application/pdf')
         return None
