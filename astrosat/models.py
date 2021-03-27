@@ -132,7 +132,45 @@ class CosmicSource(models.Model):
 
 class Astrosat(models.Model):
     
-    cosmic_source =  models.CharField(
+    date =  models.CharField(
+        max_length=500,
+        blank=True, 
+        null=True
+    )
+
+    time = models.CharField(
+        max_length=500,
+        blank=True, 
+        null=True
+    )
+
+    cycle =  models.CharField(
+        max_length=500,
+        blank=True, 
+        null=True
+    )
+
+    equatorial_ra = models.DecimalField( 
+        max_digits=9,
+        decimal_places=6,
+        blank=True, 
+        null=True
+    )
+    
+    equatorial_dec = models.DecimalField( 
+        max_digits=9,
+        decimal_places=6,
+        blank=True, 
+        null=True
+    )
+
+    name = models.CharField(
+        max_length=500,
+        blank=True, 
+        null=True
+    )
+
+    telescope = models.CharField(
         max_length=500,
         blank=True, 
         null=True

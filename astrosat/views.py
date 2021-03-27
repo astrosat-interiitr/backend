@@ -7,15 +7,17 @@ from rest_framework import status, viewsets, filters, generics
 
 
 class SatelliteViewSet(viewsets.ReadOnlyModelViewSet):
+    pagination_class = None
     serializer_class = SatelliteSerializer
     queryset = Satellite.objects.all()
 
-
 class CosmicSourceViewSet(viewsets.ReadOnlyModelViewSet):
+    pagination_class = None
     serializer_class = CosmicSourceSerializer
     queryset = CosmicSource.objects.all()
 
 class AstrosatViewSet(viewsets.ReadOnlyModelViewSet):
+    pagination_class = None
     serializer_class = AstrosatSerializer
     queryset = Astrosat.objects.all()
     

@@ -7,86 +7,123 @@ sys.path.append('/home/rmehta/astrosat/backend')
 import django
 django.setup()
 
-from astrosat.models import CosmicSource
+from astrosat.models import CosmicSource, Astrosat
 
-f = open('lmxbcat.dat', 'r')
+import glob
+os.chdir("Cat_A/")
 
 i = 0
-while True:
-    i += 1
-    line = f.readline()
-    if not line: break
 
-    name = line[:16]
+for file in glob.glob("*.dat"):
 
-    rah = int(line[24:26])
-    ram = int(line[27:29])
-    ras = float(line[30:36])
+    f = open(file, 'r')
 
-    equatorial_ra = ((rah-12.) + (ram/60.) + (ras/3600.))*15
+    while True:
+        i += 1
+        line = f.readline()
+        if not line: break
 
-    dec_sign = line[37]
-    dec_d = int(line[38: 40])
-    dec_m = int(line[41:43])
-    dec_s = float(line[44:49]) if (line[44:49].isspace() == False) else 0.
+        name = line[:16].strip()
 
-    equatorial_dec = (-1 if dec_sign == "-" else 1)*(dec_d + dec_m/60. + dec_s/3600.)
+        rah = int(line[24:26])
+        ram = int(line[27:29])
+        ras = float(line[30:36])
 
-    galactic_longitude = float(line[51:57])
+        equatorial_ra = ((rah-12.) + (ram/60.) + (ras/3600.))*15
 
-    galactic_latitude = float(line[58:66])
+        dec_sign = line[37].strip()
+        dec_d = int(line[38: 40])
+        dec_m = int(line[41:43])
+        dec_s = float(line[44:49]) if (line[44:49].isspace() == False) else 0.
 
-    type_of_observation = line[17:23]
+        equatorial_dec = (-1 if dec_sign == "-" else 1)*(dec_d + dec_m/60. + dec_s/3600.)
 
-    positional_accuracy = float(line[72:79]) if (line[72:79].isspace() == False) else None
-    
-    optical_counterpart_name = line[80:97]
+        galactic_longitude = float(line[51:57])
 
-    v_magnitude = float(line[116:122]) if (line[116:122].isspace() == False) else None
+        galactic_latitude = float(line[58:66])
 
-    b_v_color_index = float(line[130:136]) if (line[130:136].isspace() == False) else None
+        type_of_observation = line[17:23].strip()
 
-    u_b_color_index = float(line[143:148]) if (line[143:148].isspace() == False) else None
+        positional_accuracy = float(line[72:79]) if (line[72:79].isspace() == False) else None
+        
+        optical_counterpart_name = line[80:97].strip()
 
-    spectral_type = line[316:328]
+        v_magnitude = float(line[116:122]) if (line[116:122].isspace() == False) else None
 
-    x_ray_flux = float(line[185:196]) if (line[185:196].isspace() == False) else None
+        b_v_color_index = float(line[130:136]) if (line[130:136].isspace() == False) else None
 
-    orbital_period = float(line[242:252]) if (line[242:252].isspace() == False) else None
+        u_b_color_index = float(line[143:148]) if (line[143:148].isspace() == False) else None
 
-    pulse_period = float(line[259:270]) if (line[259:270].isspace() == False) else None
+        spectral_type = line[316:328].strip()
 
-    name2 = line[329:342]
+        x_ray_flux = float(line[185:196]) if (line[185:196].isspace() == False) else None
 
-    name3 = line[344:359]
+        orbital_period = float(line[242:252]) if (line[242:252].isspace() == False) else None
 
-    print(i)
-    source = CosmicSource(
-        name = name, 
-        equatorial_ra = equatorial_ra, 
-        equatorial_dec = equatorial_dec, 
-        galactic_longitude = galactic_longitude, 
-        galactic_latitude = galactic_latitude, 
-        type_of_observation = type_of_observation,
-        positional_accuracy = positional_accuracy,
-        optical_counterpart_name = optical_counterpart_name,
-        v_magnitude = v_magnitude,
-        b_v_color_index = b_v_color_index,
-        u_b_color_index = u_b_color_index,
-        spectral_type = spectral_type,
-        x_ray_flux = x_ray_flux,
-        orbital_period = orbital_period,
-        pulse_period = pulse_period,
-        name2 = name2,
-        name3 = name3
-    )
+        pulse_period = float(line[259:270]) if (line[259:270].isspace() == False) else None
 
-    # print(equatorial_ra, i)
+        name2 = line[329:342].strip()
 
+        name3 = line[344:359].strip()
 
-    source.save()
+        source = CosmicSource(
+            name = name, 
+            equatorial_ra = equatorial_ra, 
+            equatorial_dec = equatorial_dec, 
+            galactic_longitude = galactic_longitude, 
+            galactic_latitude = galactic_latitude, 
+            type_of_observation = type_of_observation,
+            positional_accuracy = positional_accuracy,
+            optical_counterpart_name = optical_counterpart_name,
+            v_magnitude = v_magnitude,
+            b_v_color_index = b_v_color_index,
+            u_b_color_index = u_b_color_index,
+            spectral_type = spectral_type,
+            x_ray_flux = x_ray_flux,
+            orbital_period = orbital_period,
+            pulse_period = pulse_period,
+            name2 = name2,
+            name3 = name3
+        )
 
+        source.save()
 
-    
+print("Loaded Cat A :", i-1, "entries")
+
+os.chdir("../Cat_B/")
+i = 0
+
+for file in glob.glob("*.csv"):
+    f = open(file, 'r')
+
+    for line in f:
+        i += 1
+        line = line.strip()
+        delimiter = ','
+        line = line.split(delimiter)
+
+        date =  line[0]
+        time = line[1]
+        cycle = line[2]
+        equatorial_ra = float(line[3]) - 180.
+        equatorial_dec = float(line[4])
+        observation_id = line[5]
+        name = line[6]
+        telescope = line[7]
+
+        source = Astrosat(
+            date = date,
+            time = time,
+            cycle = cycle,
+            equatorial_ra = equatorial_ra,
+            equatorial_dec = equatorial_dec,
+            name = name,
+            telescope = telescope,
+        )
+
+        source.save()
+
+print("Loaded Cat B :", i, "entries")
+
     
 
