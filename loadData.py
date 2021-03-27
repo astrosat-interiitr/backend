@@ -7,7 +7,7 @@ sys.path.append('/home/rmehta/astrosat/backend')
 import django
 django.setup()
 
-from astrosat.models import CosmicSource, Astrosat
+from astrosat.models import CosmicSource, Astrosat, Publication
 
 import glob
 os.chdir("Cat_A/")
@@ -125,5 +125,35 @@ for file in glob.glob("*.csv"):
 
 print("Loaded Cat B :", i, "entries")
 
+os.chdir("../Pub/")
+i = 0
+
+for file in glob.glob("*.txt"):
+    f = open(file, 'r')
+
+    while True:
+        i += 1
+        title = f.readline()[14:].strip()
+        if not title: break
+        authors = f.readline()[17:].strip()
+        code = f.readline()[29:].strip()
+        keywords = f.readline()[11:].strip()
+        abstract = f.readline()[20:].strip()
+        url = f.readline()[6:].strip()
+        bl = f.readline()
+        bl = f.readline()
+
+        source = Publication(
+            title = title,
+            abstract = abstract,
+            authors = authors,
+            url = url,
+            keyword = keyword,
+            code = code,
+        )
+
+        source.save()
+
+print("Loaded Publications :", i, "entries")
     
 

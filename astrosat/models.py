@@ -191,19 +191,25 @@ class Publication(models.Model):
         null=True
     )
     
-    author = models.CharField(
+    authors = models.CharField(
         max_length=500,
         blank=True, 
         null=True
     )
     
-    paper_url = models.URLField(
+    url = models.CharField(
+        max_length=500,
         blank=True, 
         null=True
     )
 
-
     keyword = models.TextField(
+        blank=True, 
+        null=True
+    )
+
+    code = models.CharField(
+        max_length=500,
         blank=True, 
         null=True
     )
