@@ -30,13 +30,13 @@ class PublicationGetView(generics.RetrieveAPIView):
     queryset = Publication.objects.all()
     serializer_class = PublicationSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'abstract', 'author', 'keyword']
+    search_fields = ['title', 'abstract', 'authors', 'keyword']
 
 class PublicationListView(generics.ListAPIView):
     queryset = Publication.objects.all()
     serializer_class = PublicationSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'abstract', 'author', 'keyword']
+    search_fields = ['title', 'abstract', 'authors', 'keyword']
 
 
 def GeneratePdf(request):
