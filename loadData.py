@@ -148,7 +148,7 @@ for file in glob.glob("*.txt"):
             abstract = abstract,
             authors = authors,
             url = url,
-            keyword = keyword,
+            keyword = keywords,
             code = code,
         )
 
