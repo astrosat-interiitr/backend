@@ -213,6 +213,12 @@ class Publication(models.Model):
         blank=True, 
         null=True
     )
+
+    observation_id = models.CharField(
+        max_length=500,
+        blank=True, 
+        null=True
+    )
     
     class Meta:
         verbose_name = "Publication"

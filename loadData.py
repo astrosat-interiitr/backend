@@ -117,6 +117,7 @@ for file in glob.glob("*.csv"):
             cycle = cycle,
             equatorial_ra = equatorial_ra,
             equatorial_dec = equatorial_dec,
+            observation_id = observation_id,
             name = name,
             telescope = telescope,
         )
