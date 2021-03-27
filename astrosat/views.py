@@ -49,7 +49,16 @@ class GeneratePdf(APIView):
 
     def get(self, request):
         result = BytesIO()
-        html = generateHTML(request.query_params)
+        publication_ids = self.request.query_params.getlist('publication_ids', [])
+        cosmic_source_id = self.request.query_params.get('cosmic_source_id', '')
+        astrosat_ids = self.request.query_params.getlist('astrosat_ids', [])
+
+        html = generateHTML(
+            publication_ids, 
+            cosmic_source_id, 
+            astrosat_ids
+        )
+        
         html_bytes = str.encode(html)
         pdf = pisa.pisaDocument(BytesIO(html_bytes), result)
         if not pdf.err:

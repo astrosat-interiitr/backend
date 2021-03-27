@@ -138,6 +138,12 @@ class Astrosat(models.Model):
         null=True
     )
 
+    observation_id = models.CharField(
+        max_length=500,
+        blank=True, 
+        null=True
+    )
+
     time = models.CharField(
         max_length=500,
         blank=True, 
@@ -214,11 +220,6 @@ class Publication(models.Model):
         null=True
     )
 
-    observation_id = models.CharField(
-        max_length=500,
-        blank=True, 
-        null=True
-    )
     
     class Meta:
         verbose_name = "Publication"
